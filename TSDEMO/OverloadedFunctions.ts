@@ -81,4 +81,4 @@ function greet(val:string|number|boolean):string{
 }
 console.log(greet("PW"));
 console.log(greet(12));
-console.log(greet(true));
+//console.log(greet(true));
