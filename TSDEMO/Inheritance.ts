@@ -100,3 +100,4 @@ let car:Car=new Honda("Honda","Red","Honda city",2025)
 car.displayInfo()
 car.start();
 //car.yom();// Not accesible defined inside the child class but not there in parent
+

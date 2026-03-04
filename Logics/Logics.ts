@@ -5,49 +5,43 @@
 
 
 //************************* */
-//1. reverse the word in a string
+//1. reverse the word in a string   
 let nstr: string = "";
 let rev = (inputString: string) => {
     let word: string[] = inputString.split(" ");
     for (let i = 0; i < word.length; i++) {
         nstr = word[i] + " " + nstr;
-
     }
     console.log(nstr.trim());
-
 }
 
 rev("this is sai");
-//Method 2
-// const reverseWords = (input: string): void => {
-//     const words = input.split(" ");
-//     let result = "";
+//Method 2  
+const reverseWords = (input: string): void => {
+    const words = input.split(" ");
+    let result = "";
 
-//     for (const word of words) {
-//         // Prepend the word and a space to the result
-//         result = `${word} ${result}`;
-//     }
+    for (const word of words) {
+        // Prepend the word and a space to the result
+        result = `${word} ${result}`;
+    }
 
-//     console.log(result.trim());
-// };
+    console.log(result.trim());
+};
 
-// reverseWords("this is sai"); // Output: "sai is this"
+reverseWords("this is sai"); // Output: "sai is this"
 //Method 3
-const reverseWords = (input: string): string => {
+const reverseWords1 = (input: string): string => {
     return input
         .split(" ")       // Split by space into an array of words
         .reverse()         // Reverse the array elements
         .join(" ");        // Join them back with a space
 };
 
-console.log(reverseWords("this is sai")); // Output: "sai is this"
-
-
-
+console.log(reverseWords1("this is sai")); // Output: "sai is this"
 //****************************** */
+//2.  Reverse the entire string (Character by Character)
 
-
-//2. reversed string********
 //Method 1
 // const revString = (input: string): string => {
 //     let reversed = "";
@@ -64,10 +58,8 @@ const revString = (input: string): string => {
 };
 
 console.log(revString("this is sai"));
-
-
 //***************** */
-//3 reverse each word of the string
+//3 Reverse Characters within each Word (Keep Word Order)
 
 function reverseEachWordOfString(inputString: string): void {
     // Split the string into an array of words
@@ -87,30 +79,61 @@ function reverseEachWordOfString(inputString: string): void {
         // Add reversed word and a space
         reverseString = reverseString + nstr + " ";
     }
-
     console.log(inputString);
     console.log(reverseString.trim()); // trim() removes the trailing space
 }
 
 reverseEachWordOfString("this is sai");
+//Method2
+function reverseWordsInString1(inputString: string): void {
+    const words: string[]  = inputString.split(" ");
+    const resultBuffer: string[] = [];
+
+    for (const word of words) {
+        let reversedWord = "";
+
+        // Reverse each character using for...of
+        for (const char of word) {
+            reversedWord = char + reversedWord;
+        }
+
+        // Push to array instead of "str = str + word" for better performance
+        resultBuffer.push(reversedWord);
+    }
+
+    // Join once at the end (cleaner than .trim())
+    console.log(resultBuffer.join(" "));
+}
+
+reverseWordsInString1("this is sai"); // Output: "siht si ias"
 
 
-// function reverseEachWord(inputString: string): void {
-//     const reversed = inputString
-//         .split(" ")               // 1. Split into words
-//         .map(word =>              // 2. For each word...
-//             word
-//                 .split("")        // ...split into characters
-//                 .reverse()        // ...flip characters
-//                 .join("")         // ...rejoin characters
-//         )
-//         .join(" ");               // 3. Join words back with spaces
 
-//     console.log("Original:", inputString);
-//     console.log("Reversed:", reversed);
-// }
+//Method 3
+function reverseWordsInString2(inputString: string): void {
+    const words = inputString.split(" ");
+    let finalResult = "";
 
-// reverseEachWord("this is sai"); // Output: "siht si ias"
+    for (const word of words) {
+        let reversedWord = "";
+
+        // 1. Reverse the individual word characters
+        for (const char of word) {
+            reversedWord = char + reversedWord;
+        }
+
+        // 2. Append the reversed word and a space to the final string
+        finalResult += reversedWord + " ";
+    }
+
+    // 3. Remove the trailing space added in the last iteration
+    console.log(finalResult.trim());
+}
+
+reverseWordsInString2("this is sai"); // Output: "siht si ias"
+
+
+
 //*************************************************************************************** */
 //4. reverse each word of the string with special characters
 function reverseEachWord(inputString: string): string {
@@ -131,6 +154,7 @@ function reverseEachWord(inputString: string): string {
 }
 
 console.log(reverseEachWord("this@is&sai")); // Output: "siht@si&ias"
+//Reverse only the alphabetic words in a string while keeping all special characters, numbers, and symbols in their original positions.
 
 
 function reverseEachWordWithSymbols(inputString: string): string {
@@ -1401,3 +1425,129 @@ console.log(sumOnlyIntegers1([3, 2, "a", 3, "@", 4]));
 // Output: 10
 
 //57
+
+const numbers: number[] = [1, 10, 101, 100];
+
+numbers.forEach((num, index) => {
+    // Custom logic to match your specific formatting needs
+    let formatted: string;
+    if (index === 0) formatted = num.toString().padStart(2, '0'); // "01"
+    else if (index === 3) formatted = num.toString().padStart(4, '0'); // "0100"
+    else formatted = num.toString();
+
+    console.log(formatted);
+});
+
+//58 const str: string = "HelLo wElComE tO jAVascrIpT";
+const charCount = new Map<string, number>();
+
+// Convert to lowercase to ignore case differences
+for (const char of str.toLowerCase()) {
+    const count:number = charCount.get(char) || 0;
+    charCount.set(char, count + 1);
+}
+
+// Convert Map to object for easier viewing
+console.log(Object.fromEntries(charCount));
+
+//60. write code for Maximum Subarray
+/*Given an integer array nums, find the subarray with the largest sum, and return its sum.
+
+Example 1:
+
+Input: nums = [-2,1,-3,4,-1,2,1,-5,4]*/
+function maxSubArray(nums: number[]): number {
+    // Initialize both with the first element
+    let maxSoFar: number = nums[0];
+    let currentMax: number = nums[0];
+
+    // Iterate through the array starting from the second element
+    for (let i = 1; i < nums.length; i++) {
+        const currentNum = nums[i];
+
+        /**
+         * Kadane's logic:
+         * Either continue the current subarray or start a new one 
+         * at the current element.
+         */
+        currentMax = Math.max(currentNum, currentMax + currentNum);
+
+        // Update the global maximum if the current subarray is better
+        maxSoFar = Math.max(maxSoFar, currentMax);
+    }
+
+    return maxSoFar;
+}
+
+// Example Usage:
+const nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4];
+const result = maxSubArray(nums);
+
+console.log(`The maximum subarray sum is: ${result}`); // Output: 6
+//61write code for piramide logic, like label reverse
+function invertedPyramid(n: number): void {
+  for (let i = n; i >= 1; i--) {
+    const spaces = " ".repeat(n - i);
+    const stars = "* ".repeat(i);
+    console.log(spaces + stars);
+  }
+}
+
+invertedPyramid(5);
+/* Output:
+ * * * * *
+  * * * *
+   * * *
+    * *
+     *
+*/
+function reverseLabelPyramid(n: number): void {
+  for (let i = 1; i <= n; i++) {
+    let row = " ".repeat(n - i);
+    
+    // Count down from the current row number to 1
+    for (let j = i; j >= 1; j--) {
+      row += j + " ";
+    }
+    console.log(row);
+  }
+}
+
+reverseLabelPyramid(5);
+/* Output:
+    1 
+   2 1 
+  3 2 1 
+ 4 3 2 1 
+5 4 3 2 1 
+*/
+//62 write code in str =abcbdbb", result b=3
+const str: string = "abcbdbb";
+const count = str.split("").filter(char => char === "b").length;
+
+console.log(`b = ${count}`);
+
+
+//63 count number of words in string
+function countEachWord(str: string): Map<string, number> {
+
+    const countMap = new Map<string, number>();
+    //  for (const word of  str.match(/\w+|[^\w\s]/g) || []) {    ==>  this regex matches words and punctuation separately, ensuring that punctuation is also counted as individual tokens.
+    // 1. Remove special characters (keep only letters, numbers, and spaces)
+    // /[^a-zA-Z0-9 ]/g matches anything NOT in the brackets
+    // const cleanStr = str.replace(/[^a-zA-Z0-9 ]/g, "");
+
+    for (const word of str.split(/\s+/)) {
+        countMap.set(word, (countMap.get(word) || 0) + 1);
+    }
+    for (const [word, count] of countMap.entries()) {
+        console.log(`${word}: ${count}`);// This will print each word and its count to the console  
+        // hello: 2
+        //world,: 1
+        //everyone: 1
+    }
+
+    return countMap;
+}
+const inputStr6 = "hello world, hello everyone";
+console.log(countEachWord(inputStr6)); 
