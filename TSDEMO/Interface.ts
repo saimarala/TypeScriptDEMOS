@@ -45,7 +45,7 @@ console.log(student); //{ name: 'john', age: 30 }
 
 interface Employee
 {
-    eid:number;
+    eid:number|string;
     ename:string;
     edepartment?:string;  // optional property
 

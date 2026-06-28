@@ -202,6 +202,57 @@ console.log(reverseAlphanumericWords("hello@123&world456"));
 console.log(reverseAlphanumericWords("TypeScript-2024! is_awesome"));
 // Output: "tpircSepeTy-4202! si_emosewa"
 
+function reverseWordsPreservingSymbols(str: string): string {
+    let result = "";
+    let currentWord = "";
+
+    for (let i = 0; i < str.length; i++) {
+        const char = str[i];
+        
+        // If it's a letter, add to the current temporary word
+        if (isLetter(char)) {
+            currentWord += char;
+        } 
+        // If it's a special character, reverse the currentWord and add the symbol
+        else {
+         //   result += reverseStringManual(currentWord) + char;
+             result += currentWord.split("").reverse().join("") + char;
+            currentWord = ""; // Reset for the next segment
+        }
+    }
+
+    // Add the last remaining word segment
+    result += reverseStringManual(currentWord);
+    return result;
+}
+
+// Manual reversal without .reverse() or .split()
+function reverseStringManual(s: string): string {
+    let rev = "";
+    for (let i = 0; i < s.length; i++) {
+        rev = s[i] + rev;
+    }
+    return rev;
+}
+
+function isLetter(char: string): boolean {
+    const code = char.charCodeAt(0);
+    return (code >= 65 && code <= 90) || (code >= 97 && code <= 122);
+}
+
+function isAlphaNumeric(char: string): boolean {
+    const code = char.charCodeAt(0);
+    const isLetter = (code >= 65 && code <= 90) || (code >= 97 && code <= 122);
+    const isNumber = (code >= 48 && code <= 57);
+    
+    return isLetter || isNumber;
+}
+
+const input = "this123@is&sai";
+console.log(reverseWordsPreservingSymbols(input)); 
+// Output: "siht@si&ias"
+
+
 
 
 //********************** */
